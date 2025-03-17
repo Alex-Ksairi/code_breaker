@@ -8,17 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const secretCode = Math.floor(1000 + Math.random() * 9000).toString(); // Generate a 4-digit random code
     // console.log(secretCode);
 
-    submitButton.addEventListener('click', () => {
+    const handleSubmit = () => {
         const userGuess = inputElement.value;
-    
+
         let updatedCode = '';
         let correctGuess = false;
         for (let i = 0; i < secretCode.length; i++) {
             if (userGuess[i] === secretCode[i]) {
-            updatedCode += userGuess[i];
-            correctGuess = true;
+                updatedCode += userGuess[i];
+                correctGuess = true;
             } else {
-            updatedCode += '_ ';
+                updatedCode += '_ ';
             }
         }
 
@@ -34,5 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
             codeElement.textContent = 'Incorrect, try again!';
         }
         inputElement.value = '';
+    };
+
+    submitButton.addEventListener('click', handleSubmit);
+    inputElement.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
     });
 });
